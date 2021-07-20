@@ -1,0 +1,71 @@
+ubuntu中安装Python3.7
+一. 源码安装：
+1. 官网源码下载：
+Python官网：https://www.python.org/downloads/
+setuptools官网：https://pypi.org/project/setuptools/#files
+pip官网下载：https://pypi.org/project/pip/#files
+2. 开始安装Python3.7
+(1). 编码安装步骤：配置（configure）、编译（make）、安装（make install）
+
+(2). 解压：sudo tar -zxvf Python-3.7.4.tgz
+
+(3). 安装依赖：$ sudo apt-get install libffi-dev
+
+注：在3.7中，ctypes模块依赖包 libffi-dev .如果没有，安装会报错：ModuleNotFoundError: No module named '_ctypes'
+
+(4). 配置：
+
+$ cd Python-3.7.4
+$ ./configure --prefix=/opt/python3.7
+(5). 编译：
+
+$ sudo make
+(6). 安装：
+
+$ sudo make install
+(7). 使用update-alternatives创建软连接
+
+$ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 100
+(8). 选择Python版本
+
+$ sudo update-alternatives --config python
+
+
+(9). 查看是否成功
+
+$ python -V
+(10). 删除垃圾文件
+
+$ sudo rm -rf Python-3.7.4.tgz
+$ sudo rm -rf python-3.7.4
+3. 安装pip
+说明：
+(1).我都是安装在 /opt 下，基本都是需要管理员权限。
+(2).因为我要把 pip 和 python3.7 关联在一起，所以运行 setup.py 都是用python3.7来运行的。
+(3).安装的这个pip是包含pip和pip3的，pip是用来安装第三方模块的。
+(1). 安装
+
+安装pip之前，需要安装setuptools
+
+sudo unzip setuptools-40.6.2.zip
+cd setuptools-40.6.2
+sudo python3.7 setup.py build
+sudo python3.7 setup.py install
+安装pip
+
+sudo tar -zxvf pip-18.1.tar.gz
+cd pip-18.1
+sudo python3.7 setup.py build
+sudo python3.7 setup.py install
+(2). 查看是否安装成功
+
+
+
+看 pip 的版本信息 ，可以看到最后的括号里是绑定到的版本。如果想使用方便一些，可以创建软连接。
+
+(3).pip创建软连接
+
+$ sudo ln -s /opt/ptyhon3.7/bin/pip3 /usr/local/bin/python3.7
+二. 关于virtualenv虚拟环境中python版本
+1. 创建Python3.7的虚拟环境
+virtualenv -p /opt/ptyhon/python3.6.4/bin/python venv_c
